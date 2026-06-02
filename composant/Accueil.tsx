@@ -65,24 +65,24 @@ export default function Accueil() {
 
             {/* colonne gauche */}
             <div>
-              <div className="inline-flex items-center gap-2 mb-7 px-4 py-1.5 rounded-full text-sm font-semibold"
+              <div className="hero-badge inline-flex items-center gap-2 mb-7 px-4 py-1.5 rounded-full text-sm font-semibold"
                 style={{ background: 'rgba(136,196,64,0.18)', border: '1px solid rgba(136,196,64,0.45)', color: '#c6f0b8' }}>
                 <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#88C440', flexShrink: 0 }} />
                 {t.hero.badge}
               </div>
 
-              <h1 className="font-extrabold tracking-tight leading-[1.1] text-white mb-6"
+              <h1 className="hero-h1 font-extrabold tracking-tight leading-[1.1] text-white mb-6"
                 style={{ fontSize: 'clamp(2.1rem,4.8vw,3.4rem)' }}>
                 {t.hero.h1[0]}<br />
                 <span style={{ color: '#88C440' }}>{t.hero.h1[1]}</span><br />
                 {t.hero.h1[2]}
               </h1>
 
-              <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: 'rgba(255,255,255,0.75)' }}>
+              <p className="hero-sub text-lg leading-relaxed mb-8 max-w-md" style={{ color: 'rgba(255,255,255,0.75)' }}>
                 {t.hero.subtitle}
               </p>
 
-              <div className="flex flex-wrap gap-3 mb-12">
+              <div className="hero-cta flex flex-wrap gap-3 mb-12">
                 <Link href="/formations"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:-translate-y-0.5"
                   style={{ background: '#88C440', boxShadow: '0 4px 18px rgba(136,196,64,0.40)' }}>
@@ -95,7 +95,7 @@ export default function Accueil() {
                 </Link>
               </div>
 
-              <div className="flex items-center gap-0 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}>
+              <div className="hero-stats flex items-center gap-0 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}>
                 {t.hero.heroStats.map((s, i) => (
                   <div key={s.label} className="flex items-center">
                     {i > 0 && (
@@ -111,7 +111,7 @@ export default function Accueil() {
             </div>
 
             {/* colonne droite */}
-            <div>
+            <div className="hero-card">
               <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-xl">
                 <div className="px-6 py-4" style={{ background: 'linear-gradient(90deg,#88C440 0%,#6ab52e 100%)' }}>
                   <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#fff' }}>
@@ -149,7 +149,7 @@ export default function Accueil() {
       {/* ════════════════════ WHAT WE DO ════════════════════ */}
       <section className="py-20 lg:py-28 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="anim-fade-up text-center mb-14">
             <SectionLabel>{t.whatWeDo.label}</SectionLabel>
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
               {t.whatWeDo.title}
@@ -158,9 +158,10 @@ export default function Accueil() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {t.whatWeDo.items.map((item, i) => {
               const Icon = WHAT_WE_DO_ICONS[i];
+              const delays = ['delay-1','delay-2','delay-3','delay-4'];
               return (
                 <div key={item.title}
-                  className="flex flex-col items-center text-center p-7 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  className={`anim-scale ${delays[i]} flex flex-col items-center text-center p-7 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
                   <div className="flex items-center justify-center mb-5"
                     style={{ width: 60, height: 60, borderRadius: 16, background: 'rgba(136,196,64,0.10)' }}>
                     <Icon size={26} style={{ color: '#88C440' }} />
@@ -181,12 +182,15 @@ export default function Accueil() {
             {t.companyStats.label}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-            {t.companyStats.items.map((s) => (
-              <div key={s.label} className="flex flex-col items-center text-center p-5 rounded-2xl border border-gray-100 bg-white hover:border-[#88C440]/40 hover:shadow-md transition-all duration-200">
+            {t.companyStats.items.map((s, i) => {
+              const delays = ['delay-1','delay-2','delay-3','delay-4','delay-5'];
+              return (
+              <div key={s.label} className={`anim-fade-up ${delays[i]} flex flex-col items-center text-center p-5 rounded-2xl border border-gray-100 bg-white hover:border-[#88C440]/40 hover:shadow-md transition-all duration-200`}>
                 <p className="text-3xl font-extrabold leading-none mb-1" style={{ color: '#88C440' }}>{s.value}</p>
                 <p className="text-xs font-medium text-gray-500 leading-snug">{s.label}</p>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </section>
@@ -194,7 +198,7 @@ export default function Accueil() {
       {/* ════════════════════ CHIFFRES CLÉS NARSA ════════════════════ */}
       <section className="py-14 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-10">
+          <div className="anim-fade-up text-center mb-10">
             <SectionLabel>{t.narsa.label}</SectionLabel>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
@@ -204,10 +208,11 @@ export default function Accueil() {
                 { cls: 'border-orange-100 bg-orange-50', color: '#ea580c' },
                 { cls: '', color: '#5a9a1a', green: true },
               ];
+              const narsaDelays = ['delay-1','delay-2','delay-3'];
               const st = styles[i];
               return (
                 <div key={f.value}
-                  className={`p-6 rounded-2xl border flex flex-col gap-2 ${st.cls}`}
+                  className={`anim-fade-up ${narsaDelays[i]} p-6 rounded-2xl border flex flex-col gap-2 ${st.cls}`}
                   style={st.green ? { background: 'rgba(136,196,64,0.07)', borderColor: 'rgba(136,196,64,0.3)' } : undefined}>
                   <p className="text-3xl font-extrabold" style={{ color: st.color }}>{f.value}</p>
                   <p className="text-sm font-semibold text-gray-800">{f.sub}</p>
@@ -222,7 +227,7 @@ export default function Accueil() {
       {/* ════════════════════ SERVICES ════════════════════ */}
       <section className="py-20 lg:py-28" style={{ background: '#f8f9fa' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="anim-fade-up text-center mb-14">
             <SectionLabel>{t.services.label}</SectionLabel>
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 mb-4">
               {t.services.title}
@@ -235,9 +240,10 @@ export default function Accueil() {
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {t.services.items.map((s, idx) => {
               const Icon = SERVICE_ICONS[idx];
+              const svcDelays = ['delay-1','delay-2','delay-3','delay-4','delay-5'];
               return (
                 <div key={s.num}
-                  className="group relative bg-white border border-gray-100 rounded-2xl p-7 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  className={`anim-scale ${svcDelays[idx]} group relative bg-white border border-gray-100 rounded-2xl p-7 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
                   <span className="absolute top-4 right-5 text-7xl font-black leading-none select-none pointer-events-none"
                     style={{ color: 'rgba(136,196,64,0.07)' }}>
                     {s.num}
@@ -261,7 +267,7 @@ export default function Accueil() {
       {/* ════════════════════ POURQUOI NOUS CHOISIR ════════════════════ */}
       <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="anim-fade-up text-center mb-14">
             <SectionLabel>{t.whyUs.label}</SectionLabel>
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
               {t.whyUs.title}
@@ -270,9 +276,10 @@ export default function Accueil() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {t.whyUs.items.map((item, i) => {
               const Icon = WHY_ICONS[i];
+              const whyDelays = ['delay-1','delay-2','delay-3','delay-4'];
               return (
                 <div key={item.title}
-                  className="flex flex-col items-start p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  className={`anim-fade-up ${whyDelays[i]} flex flex-col items-start p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
                   <div className="flex items-center justify-center mb-4"
                     style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(136,196,64,0.10)' }}>
                     <Icon size={22} style={{ color: '#88C440' }} />
@@ -291,7 +298,7 @@ export default function Accueil() {
         style={{ background: 'linear-gradient(135deg,#1a3a16 0%,#2d5a27 60%,#3d7a32 100%)' }}>
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 65% 50%,rgba(136,196,64,0.18) 0%,transparent 65%)' }} />
-        <div className="relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
+        <div className="anim-fade-up relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white mb-4">
             {t.cta.title}
           </h2>
