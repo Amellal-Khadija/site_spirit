@@ -2,6 +2,8 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/spiriten/public_html/
+    - export HOME=/home/spiriten
+    - cd /home/spiriten/SPIRIT_ENGINEERING
     - /usr/local/bin/npm install --legacy-peer-deps
     - /usr/local/bin/npm run build
     - /bin/rm -rf $DEPLOYPATH*
