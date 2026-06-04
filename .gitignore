@@ -19,6 +19,9 @@
 
 # production
 /build
+/out
+out.zip
+deployer.bat
 
 # misc
 .DS_Store

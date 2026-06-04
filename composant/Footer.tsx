@@ -41,8 +41,7 @@ export default function Footer() {
           {/* Col 1: Brand */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Image src={Logo} alt="Spirit Logo" height={40} className="w-auto"
-                style={{ filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
+              <Image src={Logo} alt="Spirit Logo" height={80} width={300} className="object-contain" style={{ height: '80px', width: 'auto', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
             </div>
             <p className="font-bold text-white mb-0.5" style={{ fontSize: '15px' }}>Spirit Engineering Academy</p>
             <p className="mb-3" style={{ fontSize: '12px', color: 'rgba(255,255,255,0.85)' }}>{ft.tagline}</p>
