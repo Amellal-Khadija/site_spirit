@@ -3,8 +3,17 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/spiriten/public_html/
     - export HOME=/home/spiriten
-    - cd /home/spiriten/SPIRIT_ENGINEERING
-    - /usr/local/bin/npm install --legacy-peer-deps
-    - /usr/local/bin/npm run build
-    - /bin/rm -rf $DEPLOYPATH*
-    - /bin/cp -R out/. $DEPLOYPATH
+    - export NVM_DIR=/home/spiriten/.nvm
+    - export REPO=/home/spiriten/SPIRIT_ENGINEERING
+    - echo "=== [1/5] Detection de npm ==="
+    - '. $NVM_DIR/nvm.sh 2>/dev/null; export NPM=$(which npm 2>/dev/null || echo /usr/local/bin/npm); echo "npm: $NPM"; $NPM --version'
+    - echo "=== [2/5] Installation des dependances ==="
+    - 'cd $REPO && . $NVM_DIR/nvm.sh 2>/dev/null; $(which npm 2>/dev/null || echo /usr/local/bin/npm) install --legacy-peer-deps --no-audit --no-fund'
+    - echo "=== [3/5] Build Next.js ==="
+    - 'cd $REPO && . $NVM_DIR/nvm.sh 2>/dev/null; $(which npm 2>/dev/null || echo /usr/local/bin/npm) run build'
+    - echo "=== [4/5] Verification du dossier out/ ==="
+    - ls /home/spiriten/SPIRIT_ENGINEERING/out/ | head -10
+    - echo "=== [5/5] Deploiement vers public_html ==="
+    - /bin/rm -rf ${DEPLOYPATH}*
+    - /bin/cp -R /home/spiriten/SPIRIT_ENGINEERING/out/. $DEPLOYPATH
+    - echo "=== DONE - spirit.engineering deploye ==="
