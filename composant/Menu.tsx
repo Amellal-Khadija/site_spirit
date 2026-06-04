@@ -27,7 +27,7 @@ export default function Menu() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center h-full py-2">
-          <Image src={Logo} alt="Spirit Engineering Academy" height={36} className="w-auto" />
+          <Image src={Logo} alt="Spirit Engineering Academy" height={32} width={120} className="object-contain" style={{ height: '32px', width: 'auto' }} />
         </Link>
 
         {/* Desktop nav */}
