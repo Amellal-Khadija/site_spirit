@@ -28,6 +28,7 @@ export default function Footer() {
   const navLinks = [
     { label: t.nav.home,       href: '/' },
     { label: t.nav.formations, href: '/formations' },
+    { label: t.nav.consultant,  href: '/consultant' },
     { label: t.nav.about,      href: '/a-propos' },
     { label: t.nav.contact,    href: '/contact' },
   ];
@@ -63,7 +64,7 @@ export default function Footer() {
             {/* Social links */}
             <div className="flex items-center gap-3">
               {[
-                { href: 'https://facebook.com/spiritengineering', label: 'Facebook', path: 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z' },
+                { href: 'https://web.facebook.com/SPIRITMONDE/?_rdc=1&_rdr#', label: 'Facebook', path: 'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z' },
                 { href: 'https://instagram.com/spiritengineering', label: 'Instagram', path: 'M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2z' },
                 { href: 'https://linkedin.com/company/spirit-engineering', label: 'LinkedIn', path: 'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z M4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z' },
               ].map(({ href, label, path }) => (

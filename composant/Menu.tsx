@@ -14,20 +14,29 @@ export default function Menu() {
 
   const links = [
     { label: t.nav.home,       href: '/' },
+    { label: t.nav.consultant, href: '/consultant' },
     { label: t.nav.formations, href: '/formations' },
     { label: t.nav.about,      href: '/a-propos' },
     { label: t.nav.contact,    href: '/contact' },
   ];
 
-  const active = links.find((l) => l.href === pathname)?.label ?? links[0].label;
+  // Normalise le pathname : retire le slash final et le préfixe de langue (/fr, /en)
+  const base = (() => {
+    let p = pathname;
+    if (p.length > 1 && p.endsWith('/')) p = p.slice(0, -1);
+    p = p.replace(/^\/(fr|en)/, '') || '/';
+    return p;
+  })();
+
+  const isActive = (href: string) => base === href;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
 
         {/* Logo */}
         <Link href="/" className="flex items-center h-full py-2">
-          <Image src={Logo} alt="Spirit Engineering Academy" height={80} width={300} className="object-contain" style={{ height: '80px', width: 'auto' }} />
+          <Image src={Logo} alt="Spirit Engineering Academy" height={105} width={380} className="object-contain" style={{ height: '105px', width: 'auto' }} />
         </Link>
 
         {/* Desktop nav */}
@@ -35,8 +44,8 @@ export default function Menu() {
           {links.map((link) => (
             <Link key={link.href} href={link.href}
               className={`text-sm px-4 py-2 rounded-md transition-all duration-200 ${
-                active === link.label
-                  ? 'text-[#88C440] font-semibold'
+                isActive(link.href)
+                  ? 'text-[#5a9a1a] font-bold bg-[#88C440]/10 ring-1 ring-[#88C440]/40'
                   : 'text-gray-600 font-medium hover:text-[#88C440] hover:bg-green-50'
               }`}>
               {link.label}
@@ -58,10 +67,10 @@ export default function Menu() {
         <div className="md:hidden border-t border-gray-100 bg-white px-6 py-4 space-y-1 shadow-lg">
           {links.map((link) => (
             <Link key={link.href} href={link.href}
-              className={`block text-sm font-medium px-4 py-2.5 rounded-lg transition-colors ${
-                active === link.label
-                  ? 'text-[#88C440] bg-green-50 font-semibold'
-                  : 'text-gray-600 hover:text-[#88C440] hover:bg-green-50'
+              className={`block text-sm px-4 py-2.5 rounded-lg transition-colors ${
+                isActive(link.href)
+                  ? 'text-[#5a9a1a] font-bold bg-[#88C440]/10 ring-1 ring-[#88C440]/40'
+                  : 'text-gray-600 font-medium hover:text-[#88C440] hover:bg-green-50'
               }`}
               onClick={() => setMenuOpen(false)}>
               {link.label}

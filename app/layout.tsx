@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import LangProvider from "@/composant/LangProvider";
 import ScrollAnimObserver from "@/composant/ScrollAnimObserver";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
   title: "Spirit Engineering Academy - Formation Professionnelle Transport",
@@ -20,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${inter.variable} h-full antialiased`}>
+    <html lang="fr" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <LangProvider>
           <ScrollAnimObserver />

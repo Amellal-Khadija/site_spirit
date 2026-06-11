@@ -1,31 +1,36 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Scale, Users, MapPin, Target, Package, ChevronRight,
-  ShieldCheck, TrendingUp, Sliders, Handshake,
+  ShieldCheck, TrendingUp, Sliders, Handshake, AlertTriangle,
   BookOpen, Lightbulb, ClipboardCheck, BadgeCheck,
+  Fuel, Globe, Leaf,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useT } from '@/lib/useT';
 
 const SERVICE_ICONS: LucideIcon[] = [Scale, Users, MapPin, Target, Package];
-
 const WHY_ICONS: LucideIcon[] = [ShieldCheck, TrendingUp, Sliders, Handshake];
-const WHAT_WE_DO_ICONS: LucideIcon[] = [BookOpen, Lightbulb, ClipboardCheck, BadgeCheck];
+const WHAT_WE_DO_ICONS: LucideIcon[] = [Lightbulb, BookOpen, ClipboardCheck, BadgeCheck];
+const CHALLENGE_ICONS: LucideIcon[] = [Fuel, Globe, Leaf];
 
-/* ─── micro-composants ────────────────────────────────────────────────── */
-function SectionLabel({ children }: Readonly<{ children: string }>) {
+/* ─── Section label ─────────────────────────────────────────────────── */
+function SectionLabel({ children, light }: Readonly<{ children: string; light?: boolean }>) {
+  const color = light ? '#a8e063' : '#88C440';
   return (
     <div className="mb-5">
-      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#88C440' }}>
+      <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color }}>
         {children}
       </span>
-      <div style={{ width: 48, height: 3, marginTop: 8, borderRadius: 2, background: 'linear-gradient(90deg,#88C440,transparent)' }} />
+      <div style={{ width: 48, height: 3, marginTop: 8, borderRadius: 2, background: `linear-gradient(90deg,${color},transparent)` }} />
     </div>
   );
 }
 
+/* ─── Tag ───────────────────────────────────────────────────────────── */
 function Tag({ children }: Readonly<{ children: string }>) {
   return (
     <span style={{ fontSize: 11, padding: '3px 10px', borderRadius: 100, background: 'rgba(136,196,64,0.10)', color: '#5a9a1a', border: '1px solid rgba(136,196,64,0.25)' }}>
@@ -34,140 +39,172 @@ function Tag({ children }: Readonly<{ children: string }>) {
   );
 }
 
+/* ─── Cycling card hero ─────────────────────────────────────────────── */
+function HeroCyclingCard({ items, icons, label }: Readonly<{
+  items: { title: string; desc: string }[];
+  icons: LucideIcon[];
+  label: string;
+}>) {
+  const [idx, setIdx]         = useState(0);
+  const [visible, setVisible] = useState(true);
 
-/* ─── page ──────────────────────────────────────────────────────────────── */
+  const goTo = useCallback((next: number) => {
+    setVisible(false);
+    setTimeout(() => { setIdx(next); setVisible(true); }, 280);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => goTo((idx + 1) % items.length), 7000);
+    return () => clearInterval(id);
+  }, [idx, items.length, goTo]);
+
+  const Icon = icons[idx];
+  const item = items[idx];
+
+  return (
+    <div className="rounded-2xl overflow-hidden shadow-2xl"
+      style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.12)', minHeight: 340 }}>
+      <div className="px-6 py-3" style={{ background: 'linear-gradient(90deg,#88C440,#6ab52e)' }}>
+        <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#fff' }}>{label}</p>
+      </div>
+      <div style={{ height: 3, background: 'rgba(255,255,255,0.08)' }}>
+        <div key={idx} style={{ height: '100%', background: '#88C440', borderRadius: 2, animation: 'progress-bar 7s linear forwards' }} />
+      </div>
+      <div className="flex flex-col items-start p-8"
+        style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(10px)', transition: 'opacity 0.28s ease, transform 0.28s ease' }}>
+        <div className="flex items-center justify-center mb-6"
+          style={{ width: 64, height: 64, borderRadius: 18, background: 'rgba(136,196,64,0.15)', border: '1px solid rgba(136,196,64,0.3)' }}>
+          <Icon size={28} style={{ color: '#88C440' }} />
+        </div>
+        <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(136,196,64,0.9)', marginBottom: 10 }}>
+          {String(idx + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+        </p>
+        <h3 className="font-extrabold text-white mb-4 leading-tight"
+          style={{ fontSize: '1.5rem', fontFamily: "'Century Gothic','CenturyGothic','AppleGothic',sans-serif" }}>
+          {item.title}
+        </h3>
+        <p className="text-sm leading-relaxed"
+          style={{ color: 'rgba(255,255,255,0.62)', fontFamily: "'Century Gothic','CenturyGothic','AppleGothic',sans-serif" }}>
+          {item.desc}
+        </p>
+      </div>
+      <div className="flex items-center justify-between px-8 pb-7">
+        <div className="flex gap-2">
+          {items.map((_, i) => (
+            <button key={i} onClick={() => goTo(i)} style={{ width: i === idx ? 24 : 8, height: 8, borderRadius: 4, background: i === idx ? '#88C440' : 'rgba(255,255,255,0.2)', border: 'none', cursor: 'pointer', padding: 0, transition: 'all 0.3s' }} />
+          ))}
+        </div>
+        <button onClick={() => goTo((idx + 1) % items.length)}
+          className="flex items-center gap-1 text-xs font-semibold"
+          style={{ color: 'rgba(255,255,255,0.45)', background: 'none', border: 'none', cursor: 'pointer', transition: 'color 0.2s' }}
+          onMouseEnter={e => (e.currentTarget.style.color = '#88C440')}
+          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
+          Suivant <ChevronRight size={13} />
+        </button>
+      </div>
+      <style>{`@keyframes progress-bar { from{width:0%} to{width:100%} }`}</style>
+    </div>
+  );
+}
+
+/* ─── DARK section wrapper ──────────────────────────────────────────── */
+const DARK_BG = 'linear-gradient(135deg,#0f1f0e 0%,#1a3016 60%,#243d1e 100%)';
+
+/* ─── Page ──────────────────────────────────────────────────────────── */
 export default function Accueil() {
   const t = useT();
 
   return (
     <div className="text-gray-900">
 
-      {/* ════════════════════ HERO ════════════════════ */}
-      {/* Image à placer dans /public/hero-bg.jpg — route, transport, HSE… */}
-      <section
-        className="relative overflow-hidden border-b border-gray-100"
-        style={{
-          backgroundImage: 'url(/hero-bg.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        {/* Overlay sombre pour lisibilité du texte */}
+      {/* ══ HERO ══════════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden">
+        <Image src="/hero_bg.png" alt="" fill priority
+          className="object-cover object-center pointer-events-none"
+          style={{ zIndex: 0 }} />
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'linear-gradient(120deg, rgba(15,30,12,0.78) 0%, rgba(26,58,22,0.65) 55%, rgba(26,58,22,0.50) 100%)' }} />
-        {/* Glow vert décoratif */}
+          style={{ background: 'linear-gradient(120deg,rgba(5,15,5,0.55) 0%,rgba(10,25,10,0.38) 50%,rgba(5,15,5,0.22) 100%)' }} />
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at 80% 30%, rgba(136,196,64,0.15) 0%, transparent 55%)' }} />
+          style={{ background: 'radial-gradient(ellipse at 75% 30%,rgba(136,196,64,0.20) 0%,transparent 55%)' }} />
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ opacity: 0.07, backgroundImage: 'radial-gradient(circle,#88C440 1px,transparent 1px)', backgroundSize: '32px 32px' }} />
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-14 pb-24 lg:pt-20 lg:pb-32">
-          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-20 items-center">
-
-            {/* colonne gauche */}
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-32 lg:pt-24 lg:pb-40">
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-14 lg:gap-20 items-start">
             <div>
-              <div className="hero-badge inline-flex items-center gap-2 mb-7 px-4 py-1.5 rounded-full text-sm font-semibold"
+              <Link href="/consultant"
+                className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 hover:brightness-125"
                 style={{ background: 'rgba(136,196,64,0.18)', border: '1px solid rgba(136,196,64,0.45)', color: '#c6f0b8' }}>
-                <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#88C440', flexShrink: 0 }} />
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#88C440', flexShrink: 0, boxShadow: '0 0 8px rgba(136,196,64,0.8)' }} />
                 {t.hero.badge}
-              </div>
-
-              <h1 className="hero-h1 font-extrabold tracking-tight leading-[1.1] text-white mb-6"
-                style={{ fontSize: 'clamp(2.1rem,4.8vw,3.4rem)' }}>
-                {t.hero.h1[0]}<br />
-                <span style={{ color: '#88C440' }}>{t.hero.h1[1]}</span><br />
-                {t.hero.h1[2]}
+              </Link>
+              <h1 className="font-extrabold tracking-tight leading-[1.06] text-white mb-7"
+                style={{ fontSize: 'clamp(2.4rem,5.2vw,3.9rem)' }}>
+                <span style={{ color: '#88C440' }}>{t.hero.h1[0]}</span><br />
+                {t.hero.h1[1]}<br />
+                <span style={{ color: '#88C440' }}>{t.hero.h1[2]}</span>
               </h1>
-
-              <p className="hero-sub text-lg leading-relaxed mb-8 max-w-md" style={{ color: 'rgba(255,255,255,0.75)' }}>
+              <p className="text-lg leading-relaxed mb-10 max-w-lg" style={{ color: 'rgba(255,255,255,0.72)' }}>
                 {t.hero.subtitle}
               </p>
-
-              <div className="hero-cta flex flex-wrap gap-3 mb-12">
+              <div className="flex flex-wrap gap-3 mb-12">
                 <Link href="/formations"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:-translate-y-0.5"
-                  style={{ background: '#88C440', boxShadow: '0 4px 18px rgba(136,196,64,0.40)' }}>
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ background: '#88C440', boxShadow: '0 4px 22px rgba(136,196,64,0.45)' }}>
                   {t.hero.ctaFormations} <ChevronRight size={15} />
                 </Link>
                 <Link href="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white border transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
-                  style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm text-white border transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
+                  style={{ borderColor: 'rgba(255,255,255,0.35)' }}>
                   {t.hero.ctaContact}
                 </Link>
               </div>
-
-              <div className="hero-stats flex items-center gap-0 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}>
+              <div className="flex items-center pt-7" style={{ borderTop: '1px solid rgba(255,255,255,0.12)' }}>
                 {t.hero.heroStats.map((s, i) => (
                   <div key={s.label} className="flex items-center">
-                    {i > 0 && (
-                      <div style={{ width: 1, height: 40, margin: '0 28px', background: 'linear-gradient(to bottom,transparent,rgba(255,255,255,0.2),transparent)' }} />
-                    )}
+                    {i > 0 && <div style={{ width: 1, height: 36, margin: '0 24px', background: 'rgba(255,255,255,0.15)' }} />}
                     <div>
-                      <p className="text-3xl font-extrabold text-white leading-none">{s.value}</p>
-                      <p className="text-xs mt-1 font-medium" style={{ color: 'rgba(255,255,255,0.55)' }}>{s.label}</p>
+                      <p className="font-extrabold text-white leading-none" style={{ fontSize: '2rem' }}>{s.value}</p>
+                      <p className="text-xs mt-1 font-medium" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.label}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* colonne droite */}
-            <div className="hero-card">
-              <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-xl">
-                <div className="px-6 py-4" style={{ background: 'linear-gradient(90deg,#88C440 0%,#6ab52e 100%)' }}>
-                  <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#fff' }}>
-                    {t.hero.domainsTitle}
-                  </p>
-                </div>
-                <ul className="bg-white divide-y divide-gray-100">
-                  {t.services.items.map((s, i) => (
-                    <li key={s.num} className="flex items-center gap-4 px-5 py-4 hover:bg-green-50/50 transition-colors duration-150 cursor-default">
-                      <span className="flex-shrink-0 flex items-center justify-center text-xs font-bold"
-                        style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(136,196,64,0.12)', border: '1.5px solid rgba(136,196,64,0.35)', color: '#5a9a1a' }}>
-                        {i + 1}
-                      </span>
-                      <span className="flex-1 text-sm font-semibold text-gray-800 leading-snug">{s.title}</span>
-                      <ChevronRight size={15} style={{ color: '#88C440', flexShrink: 0 }} />
-                    </li>
-                  ))}
-                </ul>
-                <div className="grid grid-cols-2 gap-2 p-3 bg-gray-50 border-t border-gray-100">
-                  {t.hero.certs.map(c => (
-                    <div key={c.code}
-                      className="flex flex-col items-center justify-center py-3 rounded-xl border border-gray-100 bg-white text-center hover:border-[#88C440]/40 hover:shadow-sm transition-all duration-200">
-                      <span className="text-sm font-bold" style={{ color: '#88C440' }}>{c.code}</span>
-                      <span className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>{c.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div>
+              <HeroCyclingCard items={t.whatWeDo.items} icons={WHAT_WE_DO_ICONS} label={t.hero.domainsTitle} />
             </div>
-
           </div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: 70, overflow: 'hidden' }}>
+          <svg viewBox="0 0 1440 70" preserveAspectRatio="none" style={{ width: '100%', height: '100%', display: 'block' }}>
+            <path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="white" />
+          </svg>
         </div>
       </section>
 
-      {/* ════════════════════ WHAT WE DO ════════════════════ */}
-      <section className="py-20 lg:py-28 bg-white border-b border-gray-100">
+      {/* ══ WHAT WE DO ════════════════════════════════════════════════ */}
+      <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="anim-fade-up text-center mb-14">
+          <div className="text-center mb-14">
             <SectionLabel>{t.whatWeDo.label}</SectionLabel>
-            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
+            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 max-w-2xl mx-auto">
               {t.whatWeDo.title}
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {t.whatWeDo.items.map((item, i) => {
               const Icon = WHAT_WE_DO_ICONS[i];
-              const delays = ['delay-1','delay-2','delay-3','delay-4'];
               return (
                 <div key={item.title}
-                  className={`anim-scale ${delays[i]} flex flex-col items-center text-center p-7 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
-                  <div className="flex items-center justify-center mb-5"
-                    style={{ width: 60, height: 60, borderRadius: 16, background: 'rgba(136,196,64,0.10)' }}>
-                    <Icon size={26} style={{ color: '#88C440' }} />
+                  className="flex flex-col p-7 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                  style={{ borderTop: '3px solid #88C440' }}>
+                  <div className="flex items-center justify-center mb-5 self-start"
+                    style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(136,196,64,0.10)' }}>
+                    <Icon size={24} style={{ color: '#88C440' }} />
                   </div>
                   <h3 className="font-bold text-gray-900 text-base mb-3">{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6b7280' }}>{item.desc}</p>
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b7280' }}>{item.desc}</p>
                 </div>
               );
             })}
@@ -175,48 +212,79 @@ export default function Accueil() {
         </div>
       </section>
 
-      {/* ════════════════════ COMPANY STATS ════════════════════ */}
-      <section className="py-12 bg-white border-b border-gray-100">
+      {/* ══ COMPANY STATS ═════════════════════════════════════════════ */}
+      <section className="py-16" style={{ background: DARK_BG }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <p className="text-center text-xs font-bold uppercase tracking-widest mb-8" style={{ color: '#88C440', letterSpacing: '0.2em' }}>
+          <p className="text-center font-bold uppercase tracking-widest mb-12"
+            style={{ fontSize: 14, color: 'rgba(168,224,99,0.8)', letterSpacing: '0.25em' }}>
             {t.companyStats.label}
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-            {t.companyStats.items.map((s, i) => {
-              const delays = ['delay-1','delay-2','delay-3','delay-4','delay-5'];
-              return (
-              <div key={s.label} className={`anim-fade-up ${delays[i]} flex flex-col items-center text-center p-5 rounded-2xl border border-gray-100 bg-white hover:border-[#88C440]/40 hover:shadow-md transition-all duration-200`}>
-                <p className="text-3xl font-extrabold leading-none mb-1" style={{ color: '#88C440' }}>{s.value}</p>
-                <p className="text-xs font-medium text-gray-500 leading-snug">{s.label}</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+            {t.companyStats.items.map((s, i) => (
+              <div key={s.label} className="flex flex-col items-center text-center py-4 px-6"
+                style={{ borderRight: i < t.companyStats.items.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none' }}>
+                <p className="font-extrabold leading-none mb-2" style={{ fontSize: '2.6rem', color: '#88C440' }}>{s.value}</p>
+                <p className="text-xs font-medium leading-snug" style={{ color: 'rgba(255,255,255,0.55)' }}>{s.label}</p>
               </div>
-            );
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ ÉNERGIE — stats (avec bg image) ══════════════════════════ */}
+      <section className="relative py-16 overflow-hidden">
+        <Image src="/bg_energie.png" alt="" fill priority
+          className="object-cover object-center pointer-events-none"
+          style={{ zIndex: 0 }} />
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'linear-gradient(135deg,rgba(10,20,8,0.62) 0%,rgba(15,31,14,0.55) 100%)' }} />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <SectionLabel light>{t.energy.label}</SectionLabel>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+            {t.energy.items.map((f, i) => {
+              const eStyles = [
+                { border: 'rgba(234,88,12,0.5)',  color: '#fb923c' },
+                { border: 'rgba(136,196,64,0.5)', color: '#88C440' },
+                { border: 'rgba(220,38,38,0.5)',  color: '#f87171' },
+                { border: 'rgba(59,130,246,0.5)', color: '#60a5fa' },
+              ];
+              const es = eStyles[i];
+              return (
+              <div key={f.value} className="flex flex-col gap-2 p-6 rounded-2xl"
+                style={{ background: 'rgba(255,255,255,0.10)', backdropFilter: 'blur(12px)', border: `1px solid ${es.border}` }}>
+                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: es.color }}>
+                  {f.sub}
+                </p>
+                <p className="font-extrabold leading-none" style={{ fontSize: '2rem', color: es.color }}>{f.value}</p>
+                <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>{f.note}</p>
+              </div>
+              );
             })}
           </div>
         </div>
       </section>
 
-      {/* ════════════════════ CHIFFRES CLÉS NARSA ════════════════════ */}
-      <section className="py-14 bg-white border-b border-gray-100">
+      {/* ══ ÉNERGIE — enjeux cards (fond blanc) ══════════════════════ */}
+      <section className="py-14 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="anim-fade-up text-center mb-10">
-            <SectionLabel>{t.narsa.label}</SectionLabel>
-          </div>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#9ca3af', marginBottom: 16 }}>
+            {t.energy.challengesLabel}
+          </p>
           <div className="grid md:grid-cols-3 gap-5">
-            {t.narsa.items.map((f, i) => {
-              const styles = [
-                { cls: 'border-red-100 bg-red-50', color: '#dc2626' },
-                { cls: 'border-orange-100 bg-orange-50', color: '#ea580c' },
-                { cls: '', color: '#5a9a1a', green: true },
-              ];
-              const narsaDelays = ['delay-1','delay-2','delay-3'];
-              const st = styles[i];
+            {t.energy.challenges.map((c, i) => {
+              const Icon = CHALLENGE_ICONS[i];
               return (
-                <div key={f.value}
-                  className={`anim-fade-up ${narsaDelays[i]} p-6 rounded-2xl border flex flex-col gap-2 ${st.cls}`}
-                  style={st.green ? { background: 'rgba(136,196,64,0.07)', borderColor: 'rgba(136,196,64,0.3)' } : undefined}>
-                  <p className="text-3xl font-extrabold" style={{ color: st.color }}>{f.value}</p>
-                  <p className="text-sm font-semibold text-gray-800">{f.sub}</p>
-                  <p className="text-xs" style={{ color: '#9ca3af' }}>{f.note}</p>
+                <div key={c.title}
+                  className="flex flex-col gap-4 p-7 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                  <div className="flex items-center justify-center self-start"
+                    style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(136,196,64,0.10)' }}>
+                    <Icon size={22} style={{ color: '#88C440' }} />
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-base">{c.title}</h3>
+                  <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b7280' }}>{c.desc}</p>
+                  <Tag>{c.tag}</Tag>
                 </div>
               );
             })}
@@ -224,38 +292,74 @@ export default function Accueil() {
         </div>
       </section>
 
-      {/* ════════════════════ SERVICES ════════════════════ */}
+      {/* ══ NARSA ═════════════════════════════════════════════════════ */}
+      <section className="relative py-16 overflow-hidden">
+        <Image src="/bg_route.png" alt="" fill priority
+          className="object-cover object-center pointer-events-none"
+          style={{ zIndex: 0 }} />
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'linear-gradient(135deg,rgba(10,20,8,0.62) 0%,rgba(15,31,14,0.55) 100%)' }} />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col items-center mb-12">
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full"
+              style={{ background: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.3)' }}>
+              <AlertTriangle size={13} style={{ color: '#f59e0b' }} />
+              <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#f59e0b' }}>
+                {t.narsa.label}
+              </span>
+            </div>
+            <div style={{ width: 48, height: 2, borderRadius: 2, background: 'linear-gradient(90deg,#f59e0b,transparent)' }} />
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {t.narsa.items.map((f, i) => {
+              const styles = [
+                { border: 'rgba(220,38,38,0.4)',  bg: 'rgba(255,255,255,0.10)', color: '#f87171' },
+                { border: 'rgba(234,88,12,0.4)',  bg: 'rgba(255,255,255,0.10)', color: '#fb923c' },
+                { border: 'rgba(136,196,64,0.4)', bg: 'rgba(255,255,255,0.10)', color: '#88C440' },
+                { border: 'rgba(220,38,38,0.4)',  bg: 'rgba(255,255,255,0.10)', color: '#f87171' },
+              ];
+              const st = styles[i];
+              return (
+                <div key={f.value} className="p-5 rounded-2xl flex flex-col gap-2"
+                  style={{ background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(12px)', border: `1px solid ${st.border}` }}>
+                  <p className="font-extrabold leading-none" style={{ fontSize: '1.8rem', color: st.color }}>{f.value}</p>
+                  <p className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>{f.sub}</p>
+                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)' }}>{f.note}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ SERVICES ══════════════════════════════════════════════════ */}
+
       <section className="py-20 lg:py-28" style={{ background: '#f8f9fa' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="anim-fade-up text-center mb-14">
+          <div className="text-center mb-14">
             <SectionLabel>{t.services.label}</SectionLabel>
-            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 mb-4">
-              {t.services.title}
-            </h2>
-            <p className="text-base max-w-2xl mx-auto" style={{ color: '#6b7280' }}>
-              {t.services.subtitle}
-            </p>
+            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 mb-4">{t.services.title}</h2>
+            <p className="text-base max-w-2xl mx-auto" style={{ color: '#6b7280' }}>{t.services.subtitle}</p>
           </div>
-
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {t.services.items.map((s, idx) => {
               const Icon = SERVICE_ICONS[idx];
-              const svcDelays = ['delay-1','delay-2','delay-3','delay-4','delay-5'];
               return (
                 <div key={s.num}
-                  className={`anim-scale ${svcDelays[idx]} group relative bg-white border border-gray-100 rounded-2xl p-7 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
-                  <span className="absolute top-4 right-5 text-7xl font-black leading-none select-none pointer-events-none"
-                    style={{ color: 'rgba(136,196,64,0.07)' }}>
-                    {s.num}
-                  </span>
-                  <div className="flex items-center justify-center mb-4"
-                    style={{ width: 50, height: 50, borderRadius: 14, background: 'rgba(136,196,64,0.10)' }}>
-                    <Icon size={22} style={{ color: '#88C440' }} />
-                  </div>
-                  <h3 className="font-bold text-gray-900 text-base mb-2 leading-snug">{s.title}</h3>
-                  <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b7280' }}>{s.desc}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {s.tags.map(t2 => <Tag key={t2}>{t2}</Tag>)}
+                  className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                  <div className="absolute inset-y-0 left-0 w-1" style={{ background: '#88C440' }} />
+                  <div className="p-7 pl-8">
+                    <span className="absolute top-4 right-5 text-7xl font-black leading-none select-none pointer-events-none"
+                      style={{ color: 'rgba(136,196,64,0.06)' }}>{s.num}</span>
+                    <div className="flex items-center justify-center mb-4"
+                      style={{ width: 50, height: 50, borderRadius: 14, background: 'rgba(136,196,64,0.10)' }}>
+                      <Icon size={22} style={{ color: '#88C440' }} />
+                    </div>
+                    <h3 className="font-bold text-gray-900 text-base mb-2 leading-snug">{s.title}</h3>
+                    <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b7280' }}>{s.desc}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {s.tags.map(t2 => <Tag key={t2}>{t2}</Tag>)}
+                    </div>
                   </div>
                 </div>
               );
@@ -264,28 +368,27 @@ export default function Accueil() {
         </div>
       </section>
 
-      {/* ════════════════════ POURQUOI NOUS CHOISIR ════════════════════ */}
+      {/* ══ POURQUOI NOUS CHOISIR ═════════════════════════════════════ */}
       <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="anim-fade-up text-center mb-14">
+          <div className="text-center mb-14">
             <SectionLabel>{t.whyUs.label}</SectionLabel>
-            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">
-              {t.whyUs.title}
-            </h2>
+            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">{t.whyUs.title}</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 gap-5">
             {t.whyUs.items.map((item, i) => {
               const Icon = WHY_ICONS[i];
-              const whyDelays = ['delay-1','delay-2','delay-3','delay-4'];
               return (
                 <div key={item.title}
-                  className={`anim-fade-up ${whyDelays[i]} flex flex-col items-start p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
-                  <div className="flex items-center justify-center mb-4"
+                  className="flex items-start gap-5 p-7 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="flex-shrink-0 flex items-center justify-center"
                     style={{ width: 52, height: 52, borderRadius: 14, background: 'rgba(136,196,64,0.10)' }}>
                     <Icon size={22} style={{ color: '#88C440' }} />
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6b7280' }}>{item.desc}</p>
+                  <div>
+                    <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: '#6b7280' }}>{item.desc}</p>
+                  </div>
                 </div>
               );
             })}
@@ -293,26 +396,23 @@ export default function Accueil() {
         </div>
       </section>
 
-      {/* ════════════════════ CTA BANNER ════════════════════ */}
-      <section className="relative overflow-hidden py-20 lg:py-24"
-        style={{ background: 'linear-gradient(135deg,#1a3a16 0%,#2d5a27 60%,#3d7a32 100%)' }}>
+      {/* ══ CTA ═══════════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden py-20 lg:py-24" style={{ background: DARK_BG }}>
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 65% 50%,rgba(136,196,64,0.18) 0%,transparent 65%)' }} />
-        <div className="anim-fade-up relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white mb-4">
-            {t.cta.title}
-          </h2>
-          <p className="text-lg mb-10" style={{ color: '#c6f0b8' }}>
-            {t.cta.subtitle}
-          </p>
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ opacity: 0.05, backgroundImage: 'radial-gradient(circle,#88C440 1px,transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="relative max-w-3xl mx-auto px-6 lg:px-8 text-center">
+          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white mb-4">{t.cta.title}</h2>
+          <p className="text-lg mb-10" style={{ color: '#c6f0b8' }}>{t.cta.subtitle}</p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/formations"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:-translate-y-0.5"
               style={{ background: '#88C440', boxShadow: '0 6px 20px rgba(136,196,64,0.30)' }}>
               {t.cta.formations} <ChevronRight size={15} />
             </Link>
             <Link href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-xl font-semibold text-sm text-white border transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm text-white border transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
               style={{ borderColor: 'rgba(255,255,255,0.4)' }}>
               {t.cta.contact}
             </Link>

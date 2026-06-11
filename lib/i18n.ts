@@ -22,16 +22,17 @@ export interface CourseItem   {
 export const FR = {
   nav: {
     home: 'Accueil',
-    formations: 'Formations',
+    formations: 'Academy',
+    consultant: 'Conseil',
     about: 'À propos',
     contact: 'Contact',
     getQuote: 'Obtenir un devis',
   },
 
   hero: {
-    badge: 'Spirit Engineering Academy — Maroc',
-    h1: ['Sécurité Routière', '& Formation', 'Professionnelle'],
-    subtitle: 'Conseil, formation et coaching pour les entreprises de transport au Maroc. Conformité réglementaire, conducteurs certifiés et zéro accident.',
+    badge: 'Besoin de conseil ?',
+    h1: ['Conseil', 'Audit', 'Formation'],
+    subtitle: 'Des solutions complètes de conseil, d\'accompagnement et de formation, portées par des consultants seniors experts. Nous mettons un haut niveau d\'exigence au service de la performance de vos équipes.',
     ctaFormations: 'Voir les formations',
     ctaContact: 'Nous contacter',
     heroStats: [
@@ -39,7 +40,7 @@ export const FR = {
       { value: '156+', label: 'Leçons vidéo' },
       { value: '5',    label: 'Domaines' },
     ] as StatItem[],
-    domainsTitle: "5 Domaines d'intervention",
+    domainsTitle: "Domaines d'intervention",
     certs: [
       { code: 'Loi 52-05', name: 'Code de la route' },
       { code: 'ADR',       name: 'Matières dangereuses' },
@@ -65,13 +66,30 @@ export const FR = {
       { value: '4 160',    sub: 'décès sur les routes du Maroc',  note: 'sur les 11 premiers mois 2025 (NARSA)' },
       { value: '+25,7%',   sub: 'hausse des accidents mortels',   note: 'vs. même période 2024' },
       { value: '2026–2030',sub: 'Stratégie nationale NARSA',      note: 'Spirit Engineering aligne vos équipes' },
+      { value: '3–5 %',    sub: 'du Produit Intérieur Brut (PIB)', note: 'Coût économique des accidents routiers au Maroc' },
     ] as FigureItem[],
+  },
+
+  energy: {
+    label: 'Transition énergétique — Enjeux 2030',
+    items: [
+      { value: '38 %',  sub: 'Secteur Transport — Maroc',        note: 'de la consommation énergétique nationale' },
+      { value: '52 %',  sub: 'Stratégie nationale',              note: 'énergies renouvelables visées d\'ici 2030' },
+      { value: '−15 %', sub: 'Gain certifié — Flottes Pro',      note: 'de carburant économisé en éco-conduite' },
+      { value: '2030',  sub: 'Horizon neutralité carbone',       note: 'Objectif stratégique du Maroc' },
+    ] as FigureItem[],
+    challengesLabel: 'Enjeux auxquels vous faites face',
+    challenges: [
+      { title: 'Volatilité du pétrole',  desc: 'Le baril dépasse 100 $. Chaque litre économisé devient un levier de compétitivité directe pour votre flotte.',                                                     tag: 'Coût & rentabilité' },
+      { title: 'Mécanisme MACF',         desc: 'La taxe carbone aux frontières européennes pèse sur vos exports. Réduire votre empreinte, c\'est protéger vos marchés.',                                           tag: 'Accès marchés UE' },
+      { title: 'Enjeux RSE',             desc: 'Reporting carbone, engagement fournisseurs, attentes clients — la performance RSE est devenue un critère de sélection.',                                           tag: 'Réputation & conformité' },
+    ] as { title: string; desc: string; tag: string }[],
   },
 
   services: {
     label: 'Notre expertise',
-    title: "Nos 5 domaines d'intervention",
-    subtitle: 'Des formations terrain adaptées aux besoins réels des entreprises de transport et de logistique au Maroc',
+    title: "Nos domaines d'intervention",
+    subtitle: 'Des interventions concrètes, adaptées aux réalités des entreprises de transport et de logistique au Maroc.',
     items: [
       { num: '01', title: 'Conseil & Conformité réglementaire',      desc: 'Accompagnement des entreprises de transport dans le respect du code de la route marocain (loi 52-05), des normes de sécurité et de la réglementation du transport de marchandises.', tags: ['Loi 52-05', 'Transport', 'Audit'] },
       { num: '02', title: 'Formation des conducteurs professionnels', desc: "Programmes complets pour chauffeurs poids lourds : conduite sécurisée, éco-conduite, gestion de la fatigue, transport ADR et premiers secours.", tags: ['ADR', 'Éco-conduite', 'Sécurité'] },
@@ -83,23 +101,23 @@ export const FR = {
 
   whatWeDo: {
     label: 'Ce que nous faisons',
-    title: 'Accompagner votre réussite par l\'expertise et la certification',
+    title: 'Quatre piliers pour renforcer la sécurité et la performance de votre organisation',
     items: [
-      { title: 'Formation',                desc: 'Programmes ciblés en HSE, sécurité routière, efficacité énergétique et gestion de l\'empreinte carbone pour développer les compétences et instaurer une culture sécurité.' },
-      { title: 'Conseil',                  desc: 'Accompagnement stratégique pour transformer les défis en santé, sécurité, environnement et énergie en opportunités de croissance pour votre entreprise.' },
-      { title: 'Audits & Évaluations',     desc: 'Audits HSE complets, revues énergétiques et évaluations carbone pour mesurer, orienter et améliorer la performance de votre organisation.' },
-      { title: 'Support à la Certification',desc: 'Accompagnement de bout en bout pour obtenir et maintenir les certifications ISO (39001, 14001, 45001), garantissant la conformité réglementaire et la reconnaissance internationale.' },
+      { title: 'Conseil',                  desc: 'Un accompagnement stratégique pour transformer vos enjeux HSE, environnement et énergie en leviers de performance et de conformité réglementaire.' },
+      { title: 'Formation',                desc: 'Des programmes terrain en HSE, sécurité routière et efficacité énergétique pour développer les compétences de vos équipes et ancrer durablement une culture sécurité.' },
+      { title: 'Audits & Évaluations',     desc: 'Des audits HSE rigoureux, revues énergétiques et bilans carbone pour identifier vos risques et piloter l\'amélioration continue de votre organisation.' },
+      { title: 'Support à la Certification',desc: 'Un accompagnement complet de l\'audit initial à la certification — obtenez et maintenez vos certifications ISO 39001, 14001 et 45001.' },
     ] as { title: string; desc: string }[],
   },
 
   whyUs: {
     label: 'Pourquoi nous choisir',
-    title: '4 raisons de faire confiance à Spirit Engineering Academy',
+    title: 'Pourquoi les entreprises marocaines nous font confiance',
     items: [
-      { title: 'Expertise prouvée',       desc: "Spécialistes reconnus en HSE, sécurité routière et transport durable avec une expérience de terrain au Maroc et à l'international." },
-      { title: 'Impact mesurable',        desc: 'Des formations qui produisent des résultats concrets : réduction des accidents, baisse des coûts et amélioration des performances.' },
-      { title: 'Solutions sur mesure',    desc: "Programmes adaptés aux réalités de chaque entreprise, secteur et niveau de maturité en sécurité." },
-      { title: 'Partenariat de confiance',desc: "Un engagement dans la durée avec un suivi personnalisé et une totale transparence sur les résultats." },
+      { title: 'Expertise prouvée',       desc: "Une expertise terrain reconnue en HSE, sécurité routière et transport durable, forgée au Maroc et à l'international." },
+      { title: 'Impact mesurable',        desc: 'Nos programmes génèrent des résultats tangibles : réduction des accidents, baisse des coûts et amélioration mesurable de vos performances.' },
+      { title: 'Solutions sur mesure',    desc: "Chaque intervention est conçue sur mesure pour s'adapter à votre secteur, votre structure et votre niveau de maturité en sécurité." },
+      { title: 'Partenariat de confiance',desc: "Un engagement dans la durée : suivi personnalisé, communication transparente et accompagnement continu jusqu'aux résultats souhaités." },
     ] as WhyItem[],
   },
 
@@ -113,8 +131,8 @@ export const FR = {
   },
 
   cta: {
-    title: 'Prêt à former vos équipes ?',
-    subtitle: 'Contactez-nous pour un devis personnalisé ou explorez nos formations disponibles.',
+    title: 'Prêt à renforcer la sécurité et la performance de vos équipes ?',
+    subtitle: 'Obtenez une proposition technique et financière sous 24h ou explorez notre catalogue de formations alignées sur les standards internationaux.',
     formations: 'Voir les formations',
     contact: 'Nous contacter',
   },
@@ -322,7 +340,7 @@ export const FR = {
   },
 
   footer: {
-    tagline: 'Formation • Audit • Conseil',
+    tagline: 'Conseil | Audit | Formation ',
     description: "Expert international en sécurité routière, efficacité énergétique et performance opérationnelle. Intervenant au Maroc, en Afrique et à l'international.",
     navLabel: 'Navigation',
     formationsLabel: 'Formations',
@@ -336,16 +354,17 @@ export const FR = {
 export const EN: typeof FR = {
   nav: {
     home: 'Home',
-    formations: 'Training',
+    formations: 'Academy',
+    consultant: 'Consultant',
     about: 'About',
     contact: 'Contact',
     getQuote: 'Get A Quote',
   },
 
   hero: {
-    badge: 'Spirit Engineering Academy — Morocco',
+    badge: 'Need consulting?',
     h1: ['Road Safety', '& Professional', 'Training'],
-    subtitle: 'Consulting, training and coaching for transport companies in Morocco. Regulatory compliance, certified drivers and zero accidents.',
+    subtitle: 'Comprehensive consulting, coaching and training solutions, delivered by senior consultants expert in road safety, HSE and transport. We bring the highest standards of excellence to serve your teams\' performance.',
     ctaFormations: 'View Training',
     ctaContact: 'Contact Us',
     heroStats: [
@@ -353,7 +372,7 @@ export const EN: typeof FR = {
       { value: '156+', label: 'Video Lessons' },
       { value: '5',    label: 'Areas' },
     ],
-    domainsTitle: '5 Areas of Expertise',
+    domainsTitle: 'Areas of Expertise',
     certs: [
       { code: 'Law 52-05', name: 'Highway Code' },
       { code: 'ADR',       name: 'Dangerous Goods' },
@@ -379,13 +398,30 @@ export const EN: typeof FR = {
       { value: '4,160',    sub: 'deaths on Morocco roads',    note: 'first 11 months 2025 (NARSA)' },
       { value: '+25.7%',   sub: 'rise in fatal accidents',    note: 'vs. same period 2024' },
       { value: '2026–2030',sub: 'NARSA National Strategy',   note: 'Spirit Engineering aligns your teams' },
+      { value: '3–5 %',    sub: 'of Gross Domestic Product (GDP)', note: 'Economic cost of road accidents in Morocco' },
     ],
+  },
+
+  energy: {
+    label: 'Energy Transition — 2030 Challenges',
+    items: [
+      { value: '38 %',  sub: 'Transport Sector — Morocco',      note: 'of national energy consumption' },
+      { value: '52 %',  sub: 'National Strategy',               note: 'renewable energy targeted by 2030' },
+      { value: '−15 %', sub: 'Certified Gain — Pro Fleets',     note: 'fuel saved through eco-driving' },
+      { value: '2030',  sub: 'Carbon Neutrality Horizon',       note: 'Strategic target for Morocco' },
+    ] as FigureItem[],
+    challengesLabel: 'Challenges you are facing',
+    challenges: [
+      { title: 'Oil Price Volatility', desc: 'The barrel exceeds $100. Every litre saved becomes a direct competitiveness lever for your fleet.',                                                      tag: 'Cost & profitability' },
+      { title: 'CBAM Mechanism',       desc: 'The EU carbon border tax weighs on your exports. Reducing your footprint means protecting your markets.',                                               tag: 'EU market access' },
+      { title: 'CSR Challenges',       desc: 'Carbon reporting, supplier commitments, client expectations — CSR performance has become a selection criterion.',                                       tag: 'Reputation & compliance' },
+    ] as { title: string; desc: string; tag: string }[],
   },
 
   services: {
     label: 'Our Expertise',
-    title: 'Our 5 Areas of Expertise',
-    subtitle: 'Practical training adapted to the real needs of transport and logistics companies in Morocco',
+    title: 'Our Areas of Expertise',
+    subtitle: 'Concrete interventions tailored to the realities of transport and logistics companies in Morocco.',
     items: [
       { num: '01', title: 'Consulting & Regulatory Compliance',  desc: 'Supporting transport companies in complying with Moroccan traffic law (Law 52-05), safety standards and freight transport regulations.', tags: ['Law 52-05', 'Transport', 'Audit'] },
       { num: '02', title: 'Professional Driver Training',        desc: 'Comprehensive programs for heavy vehicle drivers: safe driving, eco-driving, fatigue management, ADR transport and first aid.', tags: ['ADR', 'Eco-driving', 'Safety'] },
@@ -397,23 +433,23 @@ export const EN: typeof FR = {
 
   whatWeDo: {
     label: 'What We Do',
-    title: 'Empowering Your Success Through Expertise and Certification',
+    title: 'Four pillars to strengthen your organization\'s safety and performance',
     items: [
-      { title: 'Training',              desc: 'Tailored programs in HSE, Road Safety, Energy Efficiency and Carbon Footprint Management to develop competencies and foster a safety-oriented workplace.' },
-      { title: 'Consulting',            desc: 'Strategic guidance to transform health, safety, environment and energy challenges into growth opportunities for your organization.' },
-      { title: 'Audits & Assessments',  desc: 'Comprehensive HSE audits, energy reviews and carbon footprint assessments to measure, direct and improve your organizational performance.' },
-      { title: 'Certification Support', desc: 'End-to-end assistance to obtain and maintain ISO certifications (39001, 14001, 45001), ensuring regulatory compliance and global recognition.' },
+      { title: 'Consulting',            desc: 'Strategic guidance to turn your HSE, environmental and energy challenges into drivers of performance and regulatory compliance.' },
+      { title: 'Training',              desc: 'Hands-on programs in HSE, road safety and energy efficiency to build your teams\' skills and embed a lasting safety culture.' },
+      { title: 'Audits & Assessments',  desc: 'Rigorous HSE audits, energy reviews and carbon assessments to identify your risks and steer continuous improvement.' },
+      { title: 'Certification Support', desc: 'Full support from initial audit to certification — obtain and maintain your ISO 39001, 14001 and 45001 certifications.' },
     ] as { title: string; desc: string }[],
   },
 
   whyUs: {
     label: 'Why Choose Us',
-    title: '4 reasons to trust Spirit Engineering Academy',
+    title: 'Why Moroccan companies trust Spirit Engineering Academy',
     items: [
-      { title: 'Proven Expertise',    desc: 'Recognized specialists in HSE, road safety and sustainable transport with field experience in Morocco and internationally.' },
-      { title: 'Measurable Impact',   desc: 'Training programs that produce concrete results: accident reduction, cost savings and improved performance.' },
-      { title: 'Tailored Solutions',  desc: 'Programs adapted to the specific realities of each company, industry and safety maturity level.' },
-      { title: 'Trusted Partnership', desc: 'Long-term commitment with personalized follow-up and full transparency on results.' },
+      { title: 'Proven Expertise',    desc: 'Recognized field expertise in HSE, road safety and sustainable transport, built across Morocco and internationally.' },
+      { title: 'Measurable Impact',   desc: 'Our programs deliver tangible results: fewer accidents, reduced costs and measurable improvement in your operations.' },
+      { title: 'Tailored Solutions',  desc: 'Every intervention is designed to fit your industry, your organization and your specific safety maturity level.' },
+      { title: 'Trusted Partnership', desc: 'A long-term commitment: personalized follow-up, transparent communication and ongoing support until you reach your goals.' },
     ],
   },
 
@@ -427,8 +463,8 @@ export const EN: typeof FR = {
   },
 
   cta: {
-    title: 'Ready to train your teams?',
-    subtitle: 'Contact us for a personalized quote or explore our available training programs.',
+    title: 'Ready to strengthen the safety and performance of your teams?',
+    subtitle: 'Get a technical and financial proposal within 24 hours or explore our training catalog aligned with international standards.',
     formations: 'View Training',
     contact: 'Contact Us',
   },
