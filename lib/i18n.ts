@@ -16,6 +16,9 @@ export interface CourseItem   {
   id: number; title: string; category: string; instructor: string;
   level: string; lessons: number; qcm: number; exams: number;
   description: string; price: string; hasCertificate: boolean; accentColor: string;
+  mode: 'online' | 'presentiel';
+  slug?: string;
+  thumbnail?: string;
 }
 
 // ─── French ───────────────────────────────────────────────────────────────
@@ -36,9 +39,9 @@ export const FR = {
     ctaFormations: 'Voir les formations',
     ctaContact: 'Nous contacter',
     heroStats: [
-      { value: '28',   label: 'Formations' },
-      { value: '156+', label: 'Leçons vidéo' },
-      { value: '5',    label: 'Domaines' },
+      { value: '12',  label: 'Formations' },
+      { value: '130+', label: 'Leçons' },
+      { value: '8',   label: 'Domaines' },
     ] as StatItem[],
     domainsTitle: "Domaines d'intervention",
     certs: [
@@ -142,9 +145,9 @@ export const FR = {
     h1: ['Former, certifier,', 'faire progresser.'],
     subtitle: "Nous accompagnons les professionnels et les entreprises avec des formations ciblées en sécurité, énergie et performance opérationnelle. Des contenus concrets, directement applicables sur le terrain.",
     stats: [
-      { value: '5',  label: "Domaines d'expertise" },
+      { value: '8',  label: "Domaines d'expertise" },
       { value: '4',  label: 'Certifications ISO' },
-      { value: '28', label: 'Formations' },
+      { value: '12', label: 'Formations' },
     ] as StatItem[],
     context: {
       label: "Pourquoi c'est urgent",
@@ -312,6 +315,16 @@ export const FR = {
     enrollButton: "S'inscrire / Prévisualiser",
     viewCourse: 'Voir le cours',
     membersOnly: 'Réservé aux membres',
+    onlineSection: {
+      label: 'Formations en ligne',
+      title: 'Apprenez à votre rythme, où vous voulez',
+      subtitle: 'Modules 100% digitaux avec certificat à la clé. Accessible depuis n\'importe quel appareil.',
+    },
+    presentielSection: {
+      label: 'Formations présentielles',
+      title: 'Immersion terrain avec nos experts',
+      subtitle: 'Sessions pratiques animées par des formateurs certifiés pour ancrer durablement les compétences.',
+    },
     modal: {
       title: "Demande d'inscription",
       subtitle: 'Vérifiez vos coordonnées et ajoutez un message.',
@@ -330,12 +343,18 @@ export const FR = {
       close: 'Fermer',
     },
     courses: [
-      { id: 1, title: 'Conduite Sécurisée et Défensive', category: 'Sécurité', instructor: 'Z. Kartoubi', level: 'Intermédiaire', lessons: 12, qcm: 8, exams: 2, description: "Maîtrisez les techniques de conduite défensive pour réduire les risques d'accidents en conditions réelles de transport professionnel.", price: '2 500 MAD', hasCertificate: true, accentColor: '#88C440' },
-      { id: 2, title: 'Transport de Matières Dangereuses (ADR)', category: 'ADR', instructor: 'Z. Kartoubi', level: 'Avancé', lessons: 20, qcm: 15, exams: 3, description: 'Formation complète sur la réglementation ADR pour le transport de marchandises dangereuses par route selon les normes européennes.', price: '4 200 MAD', hasCertificate: true, accentColor: '#e85d04' },
-      { id: 3, title: 'Conformité Loi 52-05', category: 'Réglementation', instructor: 'Z. Kartoubi', level: 'Débutant', lessons: 8, qcm: 6, exams: 1, description: "Comprenez et appliquez le code de la route marocain (Loi 52-05) pour une conformité totale de votre flotte.", price: '1 800 MAD', hasCertificate: true, accentColor: '#3b82f6' },
-      { id: 4, title: 'Éco-conduite et Gestion de Carburant', category: 'Performance', instructor: 'Z. Kartoubi', level: 'Débutant', lessons: 10, qcm: 7, exams: 1, description: "Réduisez la consommation de carburant et l'empreinte écologique de votre flotte grâce aux techniques d'éco-conduite certifiées.", price: '1 500 MAD', hasCertificate: false, accentColor: '#88C440' },
-      { id: 5, title: 'Premiers Secours & Gestion des Accidents', category: 'Sécurité', instructor: 'Z. Kartoubi', level: 'Intermédiaire', lessons: 6, qcm: 4, exams: 1, description: 'Formez vos conducteurs aux gestes de premiers secours et à la gestion des situations urgence sur la route.', price: '1 200 MAD', hasCertificate: true, accentColor: '#ef4444' },
-      { id: 6, title: 'Arrimage et Chargement des Marchandises', category: 'Logistique', instructor: 'Z. Kartoubi', level: 'Intermédiaire', lessons: 9, qcm: 5, exams: 1, description: "Maîtrisez les procédures de chargement, d'arrimage et de déchargement conformes aux normes de sécurité en vigueur.", price: '2 000 MAD', hasCertificate: true, accentColor: '#f59e0b' },
+      { id: 1,  title: 'Prévention du Risque Routier Professionnel',     category: 'Mobilité & Sécurité',  instructor: 'Z. Kartoubi', level: 'Intermédiaire', lessons: 10, qcm: 8,  exams: 1, description: "Maîtrisez les outils et méthodes pour identifier, évaluer et réduire le risque routier au sein de votre entreprise.",                                                              price: '1 900 MAD', hasCertificate: true,  accentColor: '#88C440', mode: 'presentiel' },
+      { id: 2,  title: 'Éco-conduite & Mobilité Durable',                category: 'Mobilité & Sécurité',  instructor: 'Z. Kartoubi', level: 'Débutant',      lessons: 8,  qcm: 6,  exams: 1, description: "Réduisez la consommation de carburant et l'empreinte carbone de vos flottes grâce aux techniques d'éco-conduite certifiées ISO 50001.",                                        price: '1 500 MAD', hasCertificate: false, accentColor: '#22c55e', mode: 'presentiel' },
+      { id: 3,  title: 'ISO 39001 — Sensibilisation & Fondamentaux',     category: 'Systèmes ISO',          instructor: 'Z. Kartoubi', level: 'Débutant',      lessons: 6,  qcm: 5,  exams: 1, description: "Comprenez les exigences du référentiel ISO 39001 de management de la sécurité du trafic routier et ses bénéfices pour votre organisation.",                                  price: '1 800 MAD', hasCertificate: true,  accentColor: '#3b82f6', mode: 'presentiel' },
+      { id: 4,  title: 'Leadership HSE & Culture Sécurité',              category: 'Leadership',            instructor: 'Z. Kartoubi', level: 'Avancé',        lessons: 9,  qcm: 6,  exams: 1, description: "Développez les compétences managériales pour ancrer une culture sécurité durable et influencer positivement les comportements de vos équipes.",                               price: '2 500 MAD', hasCertificate: true,  accentColor: '#8b5cf6', mode: 'presentiel' },
+      { id: 5,  title: 'Développement Durable & ESG en Entreprise',      category: 'ESG & Durabilité',      instructor: 'Z. Kartoubi', level: 'Intermédiaire', lessons: 7,  qcm: 5,  exams: 1, description: "Intégrez les enjeux ESG et la décarbonation dans la stratégie de votre organisation pour répondre aux exigences réglementaires et des parties prenantes.",                  price: '2 000 MAD', hasCertificate: false, accentColor: '#10b981', mode: 'presentiel' },
+      { id: 6,  title: 'Audit Interne — Systèmes de Management ISO',     category: 'Audit & Conformité',    instructor: 'Z. Kartoubi', level: 'Avancé',        lessons: 12, qcm: 10, exams: 2, description: "Acquérez les compétences pour planifier et conduire des audits internes efficaces conformes aux exigences ISO 9001, 14001, 45001 et 39001.",                                 price: '3 200 MAD', hasCertificate: true,  accentColor: '#f59e0b', mode: 'presentiel' },
+      { id: 7,  title: 'Defensive Driving — Conduite Défensive Pro',     category: 'Mobilité & Sécurité',  instructor: 'Z. Kartoubi', level: 'Intermédiaire', lessons: 14, qcm: 8,  exams: 2, description: "Formation pratique aux techniques de conduite défensive pour anticiper les situations dangereuses et réduire les accidents sur route et en milieu professionnel.",              price: '3 500 MAD', hasCertificate: true,  accentColor: '#88C440', mode: 'presentiel' },
+      { id: 8,  title: 'Transport ADR — Marchandises Dangereuses',       category: 'Transport & Logistique',instructor: 'Z. Kartoubi', level: 'Avancé',        lessons: 20, qcm: 15, exams: 3, description: "Formation complète sur la réglementation ADR pour le transport de marchandises dangereuses par route. Habilitation et passage de l'examen certifiant.",                       price: '4 800 MAD', hasCertificate: true,  accentColor: '#e85d04', mode: 'presentiel' },
+      { id: 9,  title: 'Premiers Secours — SST & DAE',                   category: 'HSE & Prévention',      instructor: 'Z. Kartoubi', level: 'Débutant',      lessons: 6,  qcm: 4,  exams: 1, description: "Formez-vous aux gestes qui sauvent : prise en charge des urgences, RCP, utilisation du défibrillateur et gestion des accidents de travail.",                                 price: '1 800 MAD', hasCertificate: true,  accentColor: '#ef4444', mode: 'presentiel' },
+      { id: 10, title: 'Travaux en Hauteur & Espaces Confinés',          category: 'HSE & Prévention',      instructor: 'Z. Kartoubi', level: 'Avancé',        lessons: 10, qcm: 7,  exams: 2, description: "Maîtrisez les procédures de sécurité pour les travaux en hauteur (harnais, échafaudages) et les interventions en espaces confinés (atmosphère dangereuse, consignation).", price: '3 000 MAD', hasCertificate: true,  accentColor: '#f97316', mode: 'presentiel' },
+      { id: 11, title: 'Sécurité Entrepôt & Logistique Professionnelle', category: 'Transport & Logistique',instructor: 'Z. Kartoubi', level: 'Intermédiaire', lessons: 9,  qcm: 6,  exams: 1, description: "Procédures de chargement, d'arrimage et de manutention en zone logistique pour prévenir les accidents et garantir la conformité réglementaire.",                           price: '2 200 MAD', hasCertificate: true,  accentColor: '#0ea5e9', mode: 'presentiel' },
+      { id: 12, title: 'ISO 39001 — Auditeur Interne Certifié',          category: 'Audit & Conformité',    instructor: 'Z. Kartoubi', level: 'Avancé',        lessons: 16, qcm: 12, exams: 2, description: "Préparez et réussissez la certification d'auditeur interne ISO 39001. Programme intensif avec études de cas, mises en situation et examen blanc.",                            price: '5 500 MAD', hasCertificate: true,  accentColor: '#3b82f6', mode: 'presentiel' },
     ] as CourseItem[],
   },
 
@@ -368,9 +387,9 @@ export const EN: typeof FR = {
     ctaFormations: 'View Training',
     ctaContact: 'Contact Us',
     heroStats: [
-      { value: '28',   label: 'Programs' },
-      { value: '156+', label: 'Video Lessons' },
-      { value: '5',    label: 'Areas' },
+      { value: '12',   label: 'Programs' },
+      { value: '130+', label: 'Lessons' },
+      { value: '8',    label: 'Areas' },
     ],
     domainsTitle: 'Areas of Expertise',
     certs: [
@@ -474,9 +493,9 @@ export const EN: typeof FR = {
     h1: ['Train, certify,', 'make progress.'],
     subtitle: 'We support professionals and companies with targeted training in safety, energy and operational performance. Practical content, directly applicable in the field.',
     stats: [
-      { value: '5',  label: 'Areas of Expertise' },
+      { value: '8',  label: 'Areas of Expertise' },
       { value: '4',  label: 'ISO Certifications' },
-      { value: '28', label: 'Training Programs' },
+      { value: '12', label: 'Training Programs' },
     ],
     context: {
       label: "Why It's Urgent",
@@ -644,6 +663,16 @@ export const EN: typeof FR = {
     enrollButton: 'Enroll / Preview',
     viewCourse: 'View Course',
     membersOnly: 'Members only',
+    onlineSection: {
+      label: 'Online Training',
+      title: 'Learn at your own pace, from anywhere',
+      subtitle: '100% digital modules with certificate included. Accessible from any device.',
+    },
+    presentielSection: {
+      label: 'In-Person Training',
+      title: 'Field immersion with our experts',
+      subtitle: 'Practical sessions led by certified instructors to build lasting skills.',
+    },
     modal: {
       title: 'Enrollment Request',
       subtitle: 'Check your details and add a message.',
@@ -662,12 +691,18 @@ export const EN: typeof FR = {
       close: 'Close',
     },
     courses: [
-      { id: 1, title: 'Safe and Defensive Driving',       category: 'Safety',      instructor: 'Z. Kartoubi', level: 'Intermediate', lessons: 12, qcm: 8,  exams: 2, description: 'Master defensive driving techniques to reduce accident risk in real professional transport conditions.', price: '2,500 MAD', hasCertificate: true,  accentColor: '#88C440' },
-      { id: 2, title: 'Dangerous Goods Transport (ADR)',   category: 'ADR',         instructor: 'Z. Kartoubi', level: 'Advanced',     lessons: 20, qcm: 15, exams: 3, description: 'Complete ADR training on dangerous goods transport regulations by road according to European standards.', price: '4,200 MAD', hasCertificate: true,  accentColor: '#e85d04' },
-      { id: 3, title: 'Law 52-05 Compliance',              category: 'Regulation',  instructor: 'Z. Kartoubi', level: 'Beginner',     lessons: 8,  qcm: 6,  exams: 1, description: 'Understand and apply the Moroccan Highway Code (Law 52-05) for full fleet compliance.',              price: '1,800 MAD', hasCertificate: true,  accentColor: '#3b82f6' },
-      { id: 4, title: 'Eco-driving & Fuel Management',     category: 'Performance', instructor: 'Z. Kartoubi', level: 'Beginner',     lessons: 10, qcm: 7,  exams: 1, description: "Reduce your fleet's fuel consumption and carbon footprint with certified eco-driving techniques.",    price: '1,500 MAD', hasCertificate: false, accentColor: '#88C440' },
-      { id: 5, title: 'First Aid & Accident Management',   category: 'Safety',      instructor: 'Z. Kartoubi', level: 'Intermediate', lessons: 6,  qcm: 4,  exams: 1, description: 'Train your drivers in first aid and emergency management on the road.',                             price: '1,200 MAD', hasCertificate: true,  accentColor: '#ef4444' },
-      { id: 6, title: 'Cargo Loading & Securing',          category: 'Logistics',   instructor: 'Z. Kartoubi', level: 'Intermediate', lessons: 9,  qcm: 5,  exams: 1, description: 'Master loading, securing and unloading procedures compliant with applicable safety standards.',      price: '2,000 MAD', hasCertificate: true,  accentColor: '#f59e0b' },
+      { id: 1,  title: 'Professional Road Risk Prevention',            category: 'Mobility & Safety',     instructor: 'Z. Kartoubi', level: 'Intermediate', lessons: 10, qcm: 8,  exams: 1, description: 'Master tools and methods to identify, assess and reduce road risk within your organization.',                                                                     price: '1,900 MAD', hasCertificate: true,  accentColor: '#88C440', mode: 'presentiel' },
+      { id: 2,  title: 'Eco-driving & Sustainable Mobility',           category: 'Mobility & Safety',     instructor: 'Z. Kartoubi', level: 'Beginner',     lessons: 8,  qcm: 6,  exams: 1, description: "Reduce your fleet's fuel consumption and carbon footprint with certified eco-driving techniques aligned with ISO 50001.",                                        price: '1,500 MAD', hasCertificate: false, accentColor: '#22c55e', mode: 'presentiel' },
+      { id: 3,  title: 'ISO 39001 — Awareness & Fundamentals',         category: 'ISO Systems',           instructor: 'Z. Kartoubi', level: 'Beginner',     lessons: 6,  qcm: 5,  exams: 1, description: 'Understand the ISO 39001 road traffic safety management standard and its benefits for your organization.',                                                           price: '1,800 MAD', hasCertificate: true,  accentColor: '#3b82f6', mode: 'presentiel' },
+      { id: 4,  title: 'HSE Leadership & Safety Culture',              category: 'Leadership',            instructor: 'Z. Kartoubi', level: 'Advanced',     lessons: 9,  qcm: 6,  exams: 1, description: 'Develop the management skills needed to embed a lasting safety culture and positively influence behavior across your teams.',                                         price: '2,500 MAD', hasCertificate: true,  accentColor: '#8b5cf6', mode: 'presentiel' },
+      { id: 5,  title: 'Sustainable Development & ESG',                category: 'ESG & Sustainability',  instructor: 'Z. Kartoubi', level: 'Intermediate', lessons: 7,  qcm: 5,  exams: 1, description: 'Integrate ESG challenges and decarbonization into your organization\'s strategy to meet regulatory and stakeholder requirements.',                                    price: '2,000 MAD', hasCertificate: false, accentColor: '#10b981', mode: 'presentiel' },
+      { id: 6,  title: 'Internal Audit — ISO Management Systems',      category: 'Audit & Compliance',   instructor: 'Z. Kartoubi', level: 'Advanced',     lessons: 12, qcm: 10, exams: 2, description: 'Build the skills to plan and conduct effective internal audits for ISO 9001, 14001, 45001 and 39001.',                                                               price: '3,200 MAD', hasCertificate: true,  accentColor: '#f59e0b', mode: 'presentiel' },
+      { id: 7,  title: 'Defensive Driving — Professional Training',    category: 'Mobility & Safety',     instructor: 'Z. Kartoubi', level: 'Intermediate', lessons: 14, qcm: 8,  exams: 2, description: 'Hands-on defensive driving training to anticipate hazardous situations and reduce accidents on the road and in professional environments.',                           price: '3,500 MAD', hasCertificate: true,  accentColor: '#88C440', mode: 'presentiel' },
+      { id: 8,  title: 'ADR Transport — Dangerous Goods',              category: 'Transport & Logistics', instructor: 'Z. Kartoubi', level: 'Advanced',     lessons: 20, qcm: 15, exams: 3, description: 'Complete ADR training on dangerous goods transport regulations by road. Habilitation and certified examination.',                                                      price: '4,800 MAD', hasCertificate: true,  accentColor: '#e85d04', mode: 'presentiel' },
+      { id: 9,  title: 'First Aid — OHS & AED',                        category: 'HSE & Prevention',      instructor: 'Z. Kartoubi', level: 'Beginner',     lessons: 6,  qcm: 4,  exams: 1, description: 'Learn lifesaving skills: emergency response, CPR, AED use and workplace accident management.',                                                                      price: '1,800 MAD', hasCertificate: true,  accentColor: '#ef4444', mode: 'presentiel' },
+      { id: 10, title: 'Working at Height & Confined Spaces',          category: 'HSE & Prevention',      instructor: 'Z. Kartoubi', level: 'Advanced',     lessons: 10, qcm: 7,  exams: 2, description: 'Master safety procedures for working at height (harnesses, scaffolding) and confined space entry (hazardous atmosphere, lockout/tagout).',                           price: '3,000 MAD', hasCertificate: true,  accentColor: '#f97316', mode: 'presentiel' },
+      { id: 11, title: 'Warehouse Safety & Professional Logistics',    category: 'Transport & Logistics', instructor: 'Z. Kartoubi', level: 'Intermediate', lessons: 9,  qcm: 6,  exams: 1, description: 'Loading, securing and handling procedures in logistics areas to prevent accidents and ensure regulatory compliance.',                                                  price: '2,200 MAD', hasCertificate: true,  accentColor: '#0ea5e9', mode: 'presentiel' },
+      { id: 12, title: 'ISO 39001 — Certified Internal Auditor',       category: 'Audit & Compliance',   instructor: 'Z. Kartoubi', level: 'Advanced',     lessons: 16, qcm: 12, exams: 2, description: 'Prepare and pass the ISO 39001 internal auditor certification. Intensive program with case studies, role plays and mock exam.',                                       price: '5,500 MAD', hasCertificate: true,  accentColor: '#3b82f6', mode: 'presentiel' },
     ],
   },
 

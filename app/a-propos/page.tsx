@@ -3,8 +3,15 @@ import APropos from "@/composant/APropos";
 import Footer from "@/composant/Footer";
 
 export const metadata = {
-  title: "À propos — Spirit Engineering Academy",
-  description: "Découvrez Spirit Engineering Academy, expert en formation transport et sécurité routière au Maroc.",
+  title: "À propos — Centre de Formation Transport Casablanca",
+  description:
+    "Spirit Engineering Academy, expert en formation transport et sécurité routière au Maroc depuis plusieurs années. Basé à Casablanca, nous formons les professionnels du transport marocain.",
+  alternates: { canonical: "https://spirit.engineering/a-propos" },
+  openGraph: {
+    url: "https://spirit.engineering/a-propos",
+    title: "À propos — Spirit Engineering Academy Casablanca",
+    description: "Expert en formation transport, sécurité routière et logistique au Maroc.",
+  },
 };
 
 export default function AProposPage() {

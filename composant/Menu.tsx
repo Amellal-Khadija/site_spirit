@@ -68,6 +68,11 @@ export default function Menu() {
           {links.map((link) => (
             <Link key={link.href} href={link.href}
               className={`block text-sm px-4 py-2.5 rounded-lg transition-colors ${
+      
+      
+      
+      
+      
                 isActive(link.href)
                   ? 'text-[#5a9a1a] font-bold bg-[#88C440]/10 ring-1 ring-[#88C440]/40'
                   : 'text-gray-600 font-medium hover:text-[#88C440] hover:bg-green-50'
