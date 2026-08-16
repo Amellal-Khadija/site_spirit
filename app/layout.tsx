@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "certification ISO 39001 Maroc",
     "Spirit conseil routier",
   ],
-  authors: [{ name: "Spirit Engineering Academy", url: "https://spirit.engineering" }],
+  authors: [{ name: "Spirit Engineering Academy", url: "https://spirit.engineering/" }],
   creator: "Spirit Engineering Academy",
   publisher: "Spirit Engineering Academy",
   robots: {
@@ -40,11 +40,11 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
   },
-  alternates: { canonical: "https://spirit.engineering" },
+  alternates: { canonical: "https://spirit.engineering/" },
   openGraph: {
     type: "website",
     locale: "fr_MA",
-    url: "https://spirit.engineering",
+    url: "https://spirit.engineering/",
     siteName: "Spirit Engineering Academy",
     title: "Spirit Engineering Academy — Formation Transport & Sécurité Routière Maroc",
     description:
@@ -166,7 +166,7 @@ const jsonLd = {
     {
       "@type": "WebSite",
       "@id": "https://spirit.engineering/#website",
-      url: "https://spirit.engineering",
+      url: "https://spirit.engineering/",
       name: "Spirit Engineering Academy",
       publisher: { "@id": "https://spirit.engineering/#organization" },
       inLanguage: ["fr", "en"],

@@ -14,14 +14,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       ? "Spirit Engineering Academy, expert in transport training and road safety consulting in Morocco. Based in Casablanca, we train Moroccan transport professionals."
       : "Spirit Engineering Academy, expert en formation transport et sécurité routière au Maroc depuis plusieurs années. Basé à Casablanca, nous formons les professionnels du transport marocain.",
     alternates: {
-      canonical: `https://spirit.engineering/${lang}/a-propos`,
+      canonical: `https://spirit.engineering/${lang}/a-propos/`,
       languages: {
-        fr: "https://spirit.engineering/fr/a-propos",
-        en: "https://spirit.engineering/en/a-propos",
+        fr: "https://spirit.engineering/fr/a-propos/",
+        en: "https://spirit.engineering/en/a-propos/",
       },
     },
     openGraph: {
-      url: `https://spirit.engineering/${lang}/a-propos`,
+      url: `https://spirit.engineering/${lang}/a-propos/`,
       title: isEn ? "About Us — Spirit Engineering Academy Casablanca" : "À propos — Spirit Engineering Academy Casablanca",
       description: isEn
         ? "Expert in transport training, road safety consulting and logistics in Morocco."

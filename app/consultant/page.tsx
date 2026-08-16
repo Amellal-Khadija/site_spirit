@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     "conseil HSE Maroc",
     "Spirit Engineering  conseil",
   ],
-  alternates: { canonical: "https://spirit.engineering/consultant" },
+  alternates: { canonical: "https://spirit.engineering/consultant/" },
   openGraph: {
-    url: "https://spirit.engineering/consultant",
+    url: "https://spirit.engineering/consultant/",
     title: "Conseil en Sécurité Routière & Certification ISO — Spirit Engineering Academy",
     description:
       "Audit, diagnostic et accompagnement à la certification ISO pour les entreprises de transport et de logistique au Maroc.",

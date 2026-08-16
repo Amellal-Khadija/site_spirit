@@ -17,14 +17,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       ? ["transport training Morocco", "professional driver training Casablanca", "law 52-05", "ADR training", "eco-driving", "road safety training"]
       : ["formation transport Maroc", "formation conducteur Casablanca", "loi 52-05", "formation ADR", "éco-conduite", "sécurité routière formation"],
     alternates: {
-      canonical: `https://spirit.engineering/${lang}/formations`,
+      canonical: `https://spirit.engineering/${lang}/formations/`,
       languages: {
-        fr: "https://spirit.engineering/fr/formations",
-        en: "https://spirit.engineering/en/formations",
+        fr: "https://spirit.engineering/fr/formations/",
+        en: "https://spirit.engineering/en/formations/",
       },
     },
     openGraph: {
-      url: `https://spirit.engineering/${lang}/formations`,
+      url: `https://spirit.engineering/${lang}/formations/`,
       title: isEn
         ? "Transport & Road Safety Training — Morocco — Spirit Engineering Academy"
         : "Formations Transport & Sécurité Routière Maroc — Spirit Engineering Academy",

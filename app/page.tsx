@@ -7,9 +7,15 @@ export const metadata: Metadata = {
   title: "Spirit Engineering Academy — Formation Transport & Sécurité Routière Maroc",
   description:
     "Centre de formation professionnelle à Casablanca : conducteurs professionnels (Loi 52-05), ADR, Éco-conduite, Sécurité routière, HSE et logistique. Formations présentiel et en ligne.",
-  alternates: { canonical: "https://spirit.engineering" },
+  alternates: {
+    canonical: "https://spirit.engineering/",
+    languages: {
+      fr: "https://spirit.engineering/fr/",
+      en: "https://spirit.engineering/en/",
+    },
+  },
   openGraph: {
-    url: "https://spirit.engineering",
+    url: "https://spirit.engineering/",
     title: "Spirit Engineering Academy — Formation Transport & Sécurité Routière Maroc",
     description:
       "Formation conducteurs professionnels, sécurité routière et logistique à Casablanca. Loi 52-05, ADR, Éco-conduite.",

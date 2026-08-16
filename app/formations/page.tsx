@@ -7,9 +7,15 @@ export const metadata = {
   description:
     "Catalogue de formations professionnelles : conducteurs (Loi 52-05), ADR, Éco-conduite, Sécurité routière, HSE, Logistique. Présentiel Casablanca et en ligne. Spirit Engineering Academy.",
   keywords: ["formation transport Maroc", "formation conducteur Casablanca", "loi 52-05", "formation ADR", "éco-conduite", "sécurité routière formation"],
-  alternates: { canonical: "https://spirit.engineering/formations" },
+  alternates: {
+    canonical: "https://spirit.engineering/formations/",
+    languages: {
+      fr: "https://spirit.engineering/fr/formations/",
+      en: "https://spirit.engineering/en/formations/",
+    },
+  },
   openGraph: {
-    url: "https://spirit.engineering/formations",
+    url: "https://spirit.engineering/formations/",
     title: "Formations Transport & Sécurité Routière Maroc — Spirit Engineering Academy",
     description: "Formations présentiel et en ligne : Loi 52-05, ADR, Éco-conduite, HSE à Casablanca.",
   },

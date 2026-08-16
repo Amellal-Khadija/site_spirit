@@ -6,9 +6,15 @@ export const metadata = {
   title: "Contact — Spirit Engineering Academy Casablanca",
   description:
     "Contactez Spirit Engineering Academy à Casablanca pour vos besoins en formation transport, sécurité routière et logistique. Tél : +212 6 07 72 12 74 — info@spirit.engineering.",
-  alternates: { canonical: "https://spirit.engineering/contact" },
+  alternates: {
+    canonical: "https://spirit.engineering/contact/",
+    languages: {
+      fr: "https://spirit.engineering/fr/contact/",
+      en: "https://spirit.engineering/en/contact/",
+    },
+  },
   openGraph: {
-    url: "https://spirit.engineering/contact",
+    url: "https://spirit.engineering/contact/",
     title: "Contact — Spirit Engineering Academy Casablanca",
     description: "Contactez-nous pour vos formations transport et sécurité routière au Maroc.",
   },
