@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Spirit Engineering Academy", url: "https://spirit.engineering/" }],
   creator: "Spirit Engineering Academy",
   publisher: "Spirit Engineering Academy",
+  verification: {
+    other: { "msvalidate.01": "8B1223769478F62404157BCF3A4272D5" },
+  },
   robots: {
     index: true,
     follow: true,

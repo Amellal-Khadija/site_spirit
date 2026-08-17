@@ -20,9 +20,22 @@ export const metadata = {
   },
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Accueil", item: "https://spirit.engineering/" },
+    { "@type": "ListItem", position: 2, name: "Contact", item: "https://spirit.engineering/contact/" },
+  ],
+};
+
 export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Menu />
       <main className="flex-1 pt-16">
         <Contact />

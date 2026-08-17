@@ -16,12 +16,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*)$ $1.html [L]
 
-# Fallback to index.html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.html [L]
-
-# Page 404 personnalisée (générée par next export)
+# Toute URL non reconnue tombe sur une vraie 404 (au lieu de servir l'accueil en 200 — évite les "soft 404" indexées par Google)
 ErrorDocument 404 /404.html
 
 # Compression
